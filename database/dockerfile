@@ -1,0 +1,4 @@
+FROM postgres:alpine
+ENV POSTGRES_USER zapgo
+ENV POSTGRES_PASSWORD admin-zapgo
+ENV POSTGRES_DB zapgo

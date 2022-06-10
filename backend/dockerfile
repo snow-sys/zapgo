@@ -1,0 +1,16 @@
+FROM node:alpine
+ENV DB_NAME zapgo
+ENV DB_USER zapgo
+ENV DB_PASS admin-zapgo
+ENV DB_HOST db-zapgo
+ENV DB_PORT 5432
+ENV PORT 7500
+
+#Install some dependencies
+COPY . .
+RUN npm install
+RUN npm config set unsafe-perm true
+RUN npm i -g nodemon
+CMD [ "nodemon", "app/src/app.js" ]
+# CMD [ "node", "app/src/app.js" ]
+

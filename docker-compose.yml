@@ -1,0 +1,35 @@
+version: "3.4"
+
+services:
+  # adminer
+  adminer:
+    container_name: adminer-zapgo
+    image: adminer
+    restart: always
+    ports:
+      - 7300:8080
+
+  # database
+  db-zapgo:
+    container_name: db-zapgo
+    restart: always
+    build: ./database
+    volumes:
+      - ./database/db:/var/lib/postgresql/data
+    ports:
+      - 7600:5432
+
+  # service ponsel
+  zapgo:
+    container_name: zapgo
+    restart: always
+    depends_on:
+      - db-zapgo
+    volumes:
+      - ./backend:/app
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    build: ./backend/
+    working_dir: /app
+    ports:
+      - 7500:7500
